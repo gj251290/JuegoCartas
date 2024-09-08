@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,6 +16,9 @@ public class FrmJuego extends JFrame {
     private JPanel pnlJugador1;
     private JPanel pnlJugador2;
     private JTabbedPane tpJugadores;
+
+    Jugador jugador1 = new Jugador();
+    Jugador jugador2 = new Jugador();
 
     public FrmJuego() {
         btnRepartir = new JButton();
@@ -59,10 +63,18 @@ public class FrmJuego extends JFrame {
 
     }
 
-    private void btnRepartirClick(ActionEvent evt) {  
+    Random r = new Random();
+
+    private void btnRepartirClick(ActionEvent evt) {
+        jugador1.repartir();
+        jugador1.mostrar(pnlJugador1);
+
+        jugador2.repartir();
+        jugador2.mostrar(pnlJugador2);
+
     }
 
-    private void btnVerificarClick(ActionEvent evt) {  
+    private void btnVerificarClick(ActionEvent evt) {
     }
 
 }
