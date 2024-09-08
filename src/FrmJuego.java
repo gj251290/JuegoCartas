@@ -1,19 +1,14 @@
+import javax.swing.*;
+
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Random;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
-import javax.swing.WindowConstants;
 
 public class FrmJuego extends JFrame {
-
     private JButton btnRepartir;
     private JButton btnVerificar;
+    private JButton btnEscalera;
+    private JButton btnPuntaje;
     private JPanel pnlJugador1;
     private JPanel pnlJugador2;
     private JTabbedPane tpJugadores;
@@ -24,6 +19,8 @@ public class FrmJuego extends JFrame {
     public FrmJuego() {
         btnRepartir = new JButton();
         btnVerificar = new JButton();
+        btnEscalera = new JButton();
+        btnPuntaje = new JButton();
         tpJugadores = new JTabbedPane();
         pnlJugador1 = new JPanel();
         pnlJugador2 = new JPanel();
@@ -57,14 +54,29 @@ public class FrmJuego extends JFrame {
             }
         });
 
+        btnEscalera.setBounds(230, 10, 100, 25);
+        btnEscalera.setText("Escalera");
+        btnEscalera.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                btnEscaleraClick(evt);
+            }
+        });
+
+        btnPuntaje.setBounds(340, 10, 100, 25);
+        btnPuntaje.setText("Puntaje");
+        btnPuntaje.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                btnPuntajeClick(evt);
+            }
+        });
+
         getContentPane().setLayout(null);
         getContentPane().add(tpJugadores);
         getContentPane().add(btnRepartir);
         getContentPane().add(btnVerificar);
-
+        getContentPane().add(btnEscalera);
+        getContentPane().add(btnPuntaje);
     }
-
-    Random r = new Random();
 
     private void btnRepartirClick(ActionEvent evt) {
         jugador1.repartir();
@@ -72,7 +84,6 @@ public class FrmJuego extends JFrame {
 
         jugador2.repartir();
         jugador2.mostrar(pnlJugador2);
-
     }
 
     private void btnVerificarClick(ActionEvent evt) {
@@ -86,7 +97,25 @@ public class FrmJuego extends JFrame {
                 JOptionPane.showMessageDialog(null, jugador2.getGrupos());
                 break;
         }
-
     }
 
+    private void btnEscaleraClick(ActionEvent evt) {
+        int pestañaescogida = tpJugadores.getSelectedIndex();
+
+        switch (pestañaescogida) {
+            case 0:
+                JOptionPane.showMessageDialog(null, jugador1.detectarEscalera());
+                break;
+            case 1:
+                JOptionPane.showMessageDialog(null, jugador2.detectarEscalera());
+                break;
+        }
+    }
+
+    private void btnPuntajeClick(ActionEvent evt) {
+        int puntajeJugador1 = jugador1.calcularPuntaje();
+        int puntajeJugador2 = jugador2.calcularPuntaje();
+        JOptionPane.showMessageDialog(null,
+                "Puntaje Jugador 1: " + puntajeJugador1 + "\nPuntaje Jugador 2: " + puntajeJugador2);
+    }
 }

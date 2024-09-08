@@ -33,11 +33,17 @@ public class Carta {
 
     public NombreCarta getNombre() {
         int residuo = indice % 13;
-
         if (residuo == 0) {
-            indice = 13;
+            return NombreCarta.KING;
         }
-
         return NombreCarta.values()[residuo - 1];
+    }
+
+    public int obtenerValor() {
+        int residuo = indice % 13;
+        if (residuo == 0 || residuo >= 11) {
+            return 10;
+        }
+        return residuo;
     }
 }
